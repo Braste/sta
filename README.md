@@ -14,14 +14,10 @@ You <b> MUST </b> own the <a href="https://www.modiphius.net/collections/star-tr
 
 ## Contributors
 
-| <a href="https://www.mikeschoen.net" target="_blank">**Mike Schoen**</a> |
-| :---: |
-| [![Mike Schoen](https://avatars1.githubusercontent.com/u/9925376?s=50)](https://www.mikeschoen.net)    |
+| <a href="https://www.mikeschoen.net" target="_blank">**Mike Schoen**</a> | <a>**Braste84**</a> |
+| :---: | :---: |
+| [![Mike Schoen](https://avatars1.githubusercontent.com/u/9925376?s=50)](https://www.mikeschoen.net)  | [![Braste84](https://avatars.githubusercontent.com/u/494984?s=96&v=4)](https://github.com/braste84)    |
 | <a href="https://github.com/mkscho63" target="_blank">`github.com/mkscho63`</a> |
-
-| <a>**Braste84**</a> |
-| :---: |
-| [![Braste84](https://avatars.githubusercontent.com/u/494984?s=96&v=4)](https://github.com/braste84)    |
 
 ---
 
