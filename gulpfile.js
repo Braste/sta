@@ -165,7 +165,7 @@ async function copyUserData() {
     }
 
     let linkDir;
-    if (config.dataPath) {
+    if (config.dataPath && config.dataPath.length > 0) {
       if (!fs.existsSync(path.join(config.dataPath, 'Data'))) {
         throw Error('User Data path invalid, no Data directory found');
       }

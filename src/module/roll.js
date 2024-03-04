@@ -115,9 +115,7 @@ export class STARoll {
 
     // Check if the dice3d module exists (Dice So Nice). If it does, post a roll in that and then send to chat after the roll has finished. If not just send to chat.
     if (game.dice3d) {
-      game.dice3d.showForRoll(r, game.user, true).then((displayed) => {
-        this.sendToChat(speaker, html, r, flavor, '');
-      });
+      this.sendToChat(speaker, html, r, flavor, '');
     } else {
       this.sendToChat(speaker, html, r, flavor, 'sounds/dice.wav');
     };
@@ -174,9 +172,7 @@ export class STARoll {
       
     // Check if the dice3d module exists (Dice So Nice). If it does, post a roll in that and then send to chat after the roll has finished. If not just send to chat.
     if (game.dice3d) {
-      game.dice3d.showForRoll(rolledChallenge, game.user, true).then((displayed) => {
-        this.sendToChat(speaker, html, rolledChallenge, flavor, '');
-      });
+      this.sendToChat(speaker, html, rolledChallenge, flavor, '');
     } else {
       this.sendToChat(speaker, html, rolledChallenge, flavor, 'sounds/dice.wav');
     };
@@ -305,9 +301,7 @@ export class STARoll {
       item.id ).then( ( genericItemHTML ) => {
       const finalHTML = genericItemHTML + '</div>\n\n' + rollHTML;
       if (game.dice3d) {
-        game.dice3d.showForRoll(damageRoll, game.user, true).then( ()=> {
-          this.sendToChat( speaker, finalHTML, damageRoll, item.name, '');
-        });
+        this.sendToChat( speaker, finalHTML, damageRoll, item.name, '');
       } else {
         this.sendToChat( speaker, finalHTML, damageRoll, item.name, 'sounds/dice.wav');
       };
@@ -362,20 +356,24 @@ export class STARoll {
   }
 
   async sendToChat(speaker, content, roll, flavor, sound) {
-  let messageProps = {
-    user: game.user.id,
-    speaker: ChatMessage.getSpeaker({actor: speaker}),
-    content: content,
-    sound: sound
-  };
-  if (typeof roll != 'undefined')
-    messageProps.roll = roll;
-  if (typeof flavor != 'undefined')
-    messageProps.flavor = flavor;
+    let messageProps = {
+      user: game.user.id,
+      speaker: ChatMessage.getSpeaker({ actor: speaker }),
+      content: content,
+      sound: sound
+    };
+    if (typeof flavor != 'undefined')
+      messageProps.flavor = flavor;
     // Send's Chat Message to foundry, if items are missing they will appear as false or undefined and this not be rendered.
-    ChatMessage.create(messageProps).then((msg) => {
+    if (typeof roll != 'undefined') {
+      const storage = game.settings.storage.get("client");
+      const rollMode = storage["core.rollMode"].replaceAll('"', '');
+      const msg = await roll.toMessage(messageProps, {rollMode: rollMode, create: true});
       return msg;
-    });
+    } else {
+      const msg = await ChatMessage.create(messageProps);
+      return msg;
+    }
   }
 }
 
@@ -415,12 +413,12 @@ function getEffectsFromChallengeRoll( roll ) {
 function getDiceImageListFromChallengeRoll( roll ) {
   let diceString = '';
   const diceFaceTable = [
-    '<li class="roll die d6"><img src="systems/sta/assets/icons/ChallengeDie_Success1_small.png" /></li>',
-    '<li class="roll die d6"><img src="systems/sta/assets/icons/ChallengeDie_Success2_small.png" /></li>',
-    '<li class="roll die d6"><img src="systems/sta/assets/icons/ChallengeDie_Success0_small.png" /></li>',
-    '<li class="roll die d6"><img src="systems/sta/assets/icons/ChallengeDie_Success0_small.png" /></li>',
-    '<li class="roll die d6"><img src="systems/sta/assets/icons/ChallengeDie_Effect_small.png" /></li>',
-    '<li class="roll die d6"><img src="systems/sta/assets/icons/ChallengeDie_Effect_small.png" /></li>'
+    '<li class="roll die d6"><img src="systems/sta/assets/icons/ChallengeDie_Success1_small.png"></li>',
+    '<li class="roll die d6"><img src="systems/sta/assets/icons/ChallengeDie_Success2_small.png"></li>',
+    '<li class="roll die d6"><img src="systems/sta/assets/icons/ChallengeDie_Success0_small.png"></li>',
+    '<li class="roll die d6"><img src="systems/sta/assets/icons/ChallengeDie_Success0_small.png"></li>',
+    '<li class="roll die d6"><img src="systems/sta/assets/icons/ChallengeDie_Effect_small.png"></li>',
+    '<li class="roll die d6"><img src="systems/sta/assets/icons/ChallengeDie_Effect_small.png"></li>'
   ];
   diceString = roll.terms[0].results.map( ( die ) => die.result).map( ( result ) => diceFaceTable[result - 1]).join( ' ' );   
   return diceString;

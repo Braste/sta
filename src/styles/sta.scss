@@ -1331,4 +1331,13 @@ $trackColors: (
     }
   }
 }
+
+li.chat-message.whisper span.message-metadata::before {
+  content: "Private";
+  display: block;
+}
+
+li.chat-message .dice-tooltip .dice-rolls .roll.d6:empty {
+  display: none;
+}
 /*#endregion*/

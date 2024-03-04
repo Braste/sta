@@ -259,6 +259,17 @@ Hooks.once('init', function() {
     config: false
   });
 
+  Hooks.on('renderChatMessage', (msg, html, data) => {
+    if (data.whisperTo !== '') {
+        if (game.user.isGM === false &&
+            game.userId !== data.author.id &&
+            data.message.whisper.indexOf(game.user.id) === -1) {
+            msg.sound = null;
+            html.hide();
+        }
+    }
+  });
+
   Hooks.on('renderChatLog', (app, html, data) =>
     STAItem.chatListeners(html)
   );
@@ -269,6 +280,8 @@ Hooks.once('init', function() {
       t.render(true);
     });
   });
+
+
 
   Hooks.once("diceSoNiceReady", (dice3d) => {
     register_dsn_ufp_themes(dice3d);
