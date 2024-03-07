@@ -45,7 +45,7 @@
                 "value": 3,
                 "max": 3
             },
-			      "disciplineorder": ["command", "conn", "security", "engineering", "science", "medicine"],
+            "disciplineorder": ["command", "conn", "security", "engineering", "science", "medicine"],
             "disciplines": {
                 "command": {
                     "label": "sta.actor.character.discipline.command",

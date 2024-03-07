@@ -424,6 +424,10 @@ $trackColors: (
             padding-left: 2px;
             padding-right: 2px;
             border-bottom: 2px solid $background;
+
+            .image {
+              width: 28px;
+            }
           }
 
           .profile-img {
@@ -445,6 +449,8 @@ $trackColors: (
           .entry.row {
             display: flex;
             flex-direction: row;
+            border: solid #00273f;
+            border-width: 0 0 0 8px;
           }
 
           .note,
@@ -553,7 +559,7 @@ $trackColors: (
         .section {
           .row {
             .image {
-              width: 26px;
+              width: 35px;
 
               img {
                 width: 24px;
@@ -642,6 +648,7 @@ $trackColors: (
 
         .value-used {
           height: 17px;
+          width: 73px;
         }
 
         .row.equipable {
