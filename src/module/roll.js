@@ -369,7 +369,7 @@ export class STARoll {
     // Send's Chat Message to foundry, if items are missing they will appear as false or undefined and this not be rendered.
     if (typeof roll != 'undefined') {
       const storage = game.settings.storage.get("client");
-      const rollMode = storage["core.rollMode"].replaceAll('"', '');
+      const rollMode = storage["core.rollMode"] !== undefined ? storage["core.rollMode"].replaceAll('"', '') : game.settings.settings.get("core.rollMode").default;
       const msg = await roll.toMessage(messageProps, {rollMode: rollMode, create: true});
       return msg;
     } else {
